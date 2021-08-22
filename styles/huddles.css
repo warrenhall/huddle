@@ -1,0 +1,9 @@
+.huddle-pill {
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: #333;
+    font-weight: 700;
+    display: inline-block;
+    margin: 0.2em 1em;
+    padding: 0.2em 1em;
+}
