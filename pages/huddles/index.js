@@ -46,7 +46,7 @@ export default function Huddles() {
   }
 
   return (
-    <div class="container">
+    <div className="container">
       <div className="row">
         <br />
         <br />
@@ -54,7 +54,7 @@ export default function Huddles() {
           <h3>Huddles</h3>
         </div>
         <div className="column">
-          <a class="button" onClick={() => router.push("/huddles/create")}>
+          <a className="button" onClick={() => router.push("/huddles/create")}>
             Create Huddle
           </a>
         </div>
