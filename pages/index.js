@@ -1,44 +1,17 @@
-import { useState } from "react";
-
+import { useState, useEffect, Fragment } from "react";
+import firebase from "../firebase/clientApp";
+import Header from '../components/header/header'
 export default function Home() {
-  const [points, setPoints] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
-  const stats = ["STR", "DEX", "INT", "CON", "APP", "POW", "SIZ", "EDU"];
-  const pointsMax = 460;
-  const setPointsHandler = (e, index) => {
-    let newPoints = [...points];
-    newPoints[index] = e.target.value;
-    setPoints(newPoints);
-  };
-  const pointsTotal = points.reduce(
-    (total, amount) => parseInt(total) + parseInt(amount)
-  );
-
   return (
-    <div className="container">
-      <div className="row">
-        {stats.map((stat, index) => (
-          <div className="stat-block" key={index}>
-            <p>
-              {stat}
-              <br />
-              <input
-                type="text"
-                value={points[index]}
-                onChange={(e) => setPointsHandler(e, index)}
-              />
-            </p>
-          </div>
-        ))}
+<Fragment>
+      <Header/>
+      <div className="container">
+        <h2>Welcome to Huddle</h2>
+        <p>
+          Huddle is a tool for assisting RP Gamers by creating Huddles. What is a Huddle? <br/>
+          A Huddle is a space where Players can RSVP with the GM ahead of time, for a more seamless gaming experience.
+        </p>
       </div>
-      <h1>
-      {pointsTotal<=pointsMax?(<span className="total">{pointsTotal}</span>):(<span className="total red">{pointsTotal}</span>)}
-      /
-      {pointsMax}
-      </h1>
-
-
-
-
-    </div>
+      </Fragment>
   );
 }

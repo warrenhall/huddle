@@ -1,25 +1,36 @@
 import { useRouter } from "next/router";
+import { Fragment } from "react";
+import Header from "../../components/header/header";
 
 const apiUrl =
   "https://huddle-b2842-default-rtdb.europe-west1.firebasedatabase.app/huddles.json";
 
-  const toIsoString = (date) => {
-    var tzo = -date.getTimezoneOffset(),
-        dif = tzo >= 0 ? '+' : '-',
-        pad = function(num) {
-            var norm = Math.floor(Math.abs(num));
-            return (norm < 10 ? '0' : '') + norm;
-        };
+const toIsoString = (date) => {
+  var tzo = -date.getTimezoneOffset(),
+    dif = tzo >= 0 ? "+" : "-",
+    pad = function (num) {
+      var norm = Math.floor(Math.abs(num));
+      return (norm < 10 ? "0" : "") + norm;
+    };
 
-    return date.getFullYear() +
-        '-' + pad(date.getMonth() + 1) +
-        '-' + pad(date.getDate()) +
-        'T' + pad(date.getHours()) +
-        ':' + pad(date.getMinutes()) +
-        ':' + pad(date.getSeconds()) +
-        dif + pad(tzo / 60) +
-        ':' + pad(tzo % 60);
-  }
+  return (
+    date.getFullYear() +
+    "-" +
+    pad(date.getMonth() + 1) +
+    "-" +
+    pad(date.getDate()) +
+    "T" +
+    pad(date.getHours()) +
+    ":" +
+    pad(date.getMinutes()) +
+    ":" +
+    pad(date.getSeconds()) +
+    dif +
+    pad(tzo / 60) +
+    ":" +
+    pad(tzo % 60)
+  );
+};
 
 export default function CreateHuddle() {
   const router = useRouter();
@@ -27,7 +38,7 @@ export default function CreateHuddle() {
   const createHuddle = async (event) => {
     event.preventDefault();
 
-    let huddleDateTime = new Date(event.target.datetime.value)
+    let huddleDateTime = new Date(event.target.datetime.value);
     huddleDateTime = toIsoString(huddleDateTime);
 
     fetch(apiUrl, {
@@ -42,35 +53,43 @@ export default function CreateHuddle() {
         "Content-Type": "application/json",
       },
     }).then(
-        setTimeout(() => {
-            router.replace("/huddles")
-        }, 1000)
+      setTimeout(() => {
+        router.replace("/huddles");
+      }, 1000)
     );
   };
 
   return (
-    <div className="container">
-      <h3>Create Huddle</h3>
+    <Fragment>
+      <Header />
+      <div className="container">
+        <h3>Create Huddle</h3>
 
-      <form onSubmit={createHuddle}>
-        <fieldset>
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" required />
+        <form onSubmit={createHuddle}>
+          <fieldset>
+            <label htmlFor="name">Name</label>
+            <input id="name" name="name" type="text" required />
 
-          <label htmlFor="description">Description</label>
-          <input id="description" name="description" type="text" required />
+            <label htmlFor="description">Description</label>
+            <input id="description" name="description" type="text" required />
 
-          <label htmlFor="date">Date and Time</label>
-          <input id="datetime" name="datetime" type="datetime-local" required />
+            <label htmlFor="date">Date and Time</label>
+            <input
+              id="datetime"
+              name="datetime"
+              type="datetime-local"
+              required
+            />
 
-          <label htmlFor="duration">
-            Duration <i>(Hours)</i>
-          </label>
-          <input id="duration" name="duration" type="number" required />
+            <label htmlFor="duration">
+              Duration <i>(Hours)</i>
+            </label>
+            <input id="duration" name="duration" type="number" required />
 
-          <button type="submit">Create Huddle</button>
-        </fieldset>
-      </form>
-    </div>
+            <button type="submit">Create Huddle</button>
+          </fieldset>
+        </form>
+      </div>
+    </Fragment>
   );
 }
