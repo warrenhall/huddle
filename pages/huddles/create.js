@@ -45,7 +45,7 @@ export default function CreateHuddle() {
       method: "POST",
       body: JSON.stringify({
         name: event.target.name.value,
-        description: event.target.name.value,
+        description: event.target.description.value,
         datetime: huddleDateTime,
         duration: event.target.duration.value,
       }),
@@ -63,29 +63,16 @@ export default function CreateHuddle() {
     <Fragment>
       <Header />
       <div className="container">
-        <h3>Create Huddle</h3>
-
         <form onSubmit={createHuddle}>
           <fieldset>
             <label htmlFor="name">Name</label>
             <input id="name" name="name" type="text" required />
-
             <label htmlFor="description">Description</label>
-            <input id="description" name="description" type="text" required />
-
+            <textarea id="description" name="description" type="text" required></textarea>
             <label htmlFor="date">Date and Time</label>
-            <input
-              id="datetime"
-              name="datetime"
-              type="datetime-local"
-              required
-            />
-
-            <label htmlFor="duration">
-              Duration <i>(Hours)</i>
-            </label>
+            <input id="datetime" name="datetime" type="datetime-local" required />
+            <label htmlFor="duration">Duration <i>(Hours)</i></label>
             <input id="duration" name="duration" type="number" required />
-
             <button type="submit">Create Huddle</button>
           </fieldset>
         </form>

@@ -42,7 +42,7 @@ export default function AuthRegister() {
       <Header />
       <div className="container flex-center">
         <div className="row">
-          <form onSubmit={(e) => authUser(e)}>
+          <form className="auth" onSubmit={(e) => authUser(e)}>
             <h4>Register for Huddle</h4>
             <fieldset>
               <label htmlFor="nameField">Email</label>

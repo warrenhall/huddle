@@ -38,7 +38,7 @@ export default function AuthHome() {
       <Header/>
     <div className="container flex-center">
       <div className="row">
-        <form onSubmit={(e) => registerUser(e)}>
+        <form className="auth" onSubmit={(e) => registerUser(e)}>
           <h4>Login to Huddle</h4>
           <fieldset>
             <label htmlFor="nameField">Email</label>

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import Header from "../../components/header/header";
 import { google } from "calendar-link";
 
@@ -19,11 +19,10 @@ function googleCalendarLink() {
   };
 
   // Then fetch the link
-  console.log(google(event))
+  console.log(google(event));
 }
 
 export default function Huddles() {
-  const router = useRouter();
   const [huddles, setHuddles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,8 +41,9 @@ export default function Huddles() {
             huddleArray.push({
               id: huddle.id,
               name: huddle.name,
-              description: huddle.name,
-              datetime: huddleTime.toLocaleString(),
+              description: huddle.description,
+              date: huddleTime.toDateString(),
+              time: huddleTime.toLocaleTimeString(),
               duration: huddle.duration,
             });
           }
@@ -55,29 +55,24 @@ export default function Huddles() {
       });
   }, []);
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <Fragment>
       <Header />
       <div className="container">
-        <div className="row">
-          <br />
-          <br />
-          <div className="column">
-            <h3>Huddles</h3>
-          </div>
-        </div>
-
-        {huddles.map((huddle) => (
-          <p key={huddle.id}>
-            {huddle.name} at {huddle.description}
-            {huddle.name}, description: {huddle.name},
-            <span className="huddle-pill" onClick={googleCalendarLink()}>{huddle.datetime}</span>
-          </p>
-        ))}
+        {!isLoading &&
+          huddles.map((huddle) => (
+            <div className="card" key={huddle.id}>
+              <h4>{huddle.name}</h4>
+              <em>{huddle.description}</em>
+              <span className="huddle-pill" onClick={googleCalendarLink()}>
+                {huddle.date} - {huddle.time}
+              </span>
+              <br /><br />
+              <Link href="/huddles/rsvp/1">
+                <a className="button">RSVP</a>
+              </Link>
+            </div>
+          ))}
       </div>
     </Fragment>
   );
