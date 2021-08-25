@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import Header from "../../components/header/header";
+import HuddleCard from "../../components/huddle-card"
 import { google } from "calendar-link";
 
 const apiUrl =
@@ -61,17 +62,7 @@ export default function Huddles() {
       <div className="container">
         {!isLoading &&
           huddles.map((huddle) => (
-            <div className="card" key={huddle.id}>
-              <h4>{huddle.name}</h4>
-              <em>{huddle.description}</em>
-              <span className="huddle-pill" onClick={googleCalendarLink()}>
-                {huddle.date} - {huddle.time}
-              </span>
-              <br /><br />
-              <Link href="/huddles/rsvp/1">
-                <a className="button">RSVP</a>
-              </Link>
-            </div>
+            <HuddleCard huddle={huddle} key={huddle.id}/>
           ))}
       </div>
     </Fragment>

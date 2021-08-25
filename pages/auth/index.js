@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import firebase from "../../firebase/clientApp";
+import firebase from "../../firebase/firebase";
 import Header from "../../components/header/header";
 
 export default function AuthHome() {
@@ -20,46 +20,42 @@ export default function AuthHome() {
     firebase
       .auth()
       .signInWithEmailAndPassword(userEmail, userPassword)
-      .then((userCredential) => {
+      .then(() => {
         // Signed in
-        var user = userCredential.user;
-
-        // ...
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ..
+        router.replace("/");
       });
   };
 
   return (
     <Fragment>
-      <Header/>
-    <div className="container flex-center">
-      <div className="row">
-        <form className="auth" onSubmit={(e) => registerUser(e)}>
-          <h4>Login to Huddle</h4>
-          <fieldset>
-            <label htmlFor="nameField">Email</label>
-            <input type="text" onChange={(e) => setUserEmail(e.target.value)} />
+      <Header />
+      <div className="container flex-center">
+        <div className="row">
+          <form className="auth" onSubmit={(e) => registerUser(e)}>
+            <h4>Login to Huddle</h4>
+            <fieldset>
+              <label htmlFor="nameField">Email</label>
+              <input
+                type="text"
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
 
-            <label htmlFor="nameField">Password</label>
-            <input
-              type="password"
-              onChange={(e) => setUserPassword(e.target.value)}
-            />
+              <label htmlFor="nameField">Password</label>
+              <input
+                type="password"
+                onChange={(e) => setUserPassword(e.target.value)}
+              />
 
-            <input className="button-primary" type="submit" value="Login" />
-          </fieldset>
-          <p>
-            <Link href="/auth/register">
-              <a> Register Here </a>
-            </Link>
-          </p>
-        </form>
+              <input className="button-primary" type="submit" value="Login" />
+            </fieldset>
+            <p>
+              <Link href="/auth/register">
+                <a> Register Here </a>
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
     </Fragment>
   );
 }

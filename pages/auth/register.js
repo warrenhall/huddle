@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import firebase from "../../firebase/clientApp";
+import firebase from "../../firebase/firebase";
 import Header from "../../components/header/header";
 
 export default function AuthRegister() {
